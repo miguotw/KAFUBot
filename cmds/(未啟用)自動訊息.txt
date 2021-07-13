@@ -1,0 +1,73 @@
+import discord
+from discord.ext import commands
+from core.classes import Cog_Extension
+import json,asyncio,datetime
+
+with open('seeting.json','r',encoding='utf8') as jfile:
+    jdata = json.load(jfile)
+
+class 自動訊息(Cog_Extension):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        
+        #async def interval(): #自動訊息間格時間
+        #    await self.bot.wait_until_ready()
+        #    self.channel = self.bot.get_channel(733356676601610382)
+        #    while not self.bot.is_closed():
+        #        time = datetime.datetime.now().strftime('[%H:%M:%S]')
+        #        await self.channel.send('自動訊息測試(測試期間每五秒發送)')
+        #        print(f'{time} 自動訊息測試(測試期間每五秒發送)')
+        #        await asyncio.sleep(5) #單位:秒
+
+        #self.bg_task = self.bot.loop.create_task(interval())
+
+        self.counter = 0
+
+        async def time_task(): #自動訊息(指定時間)
+            await self.bot.wait_until_ready()
+            self.channel = self.bot.get_channel(733356676601610382)
+            while not self.bot.is_closed():
+                now_time = datetime.datetime.now().strftime('[%H:%M]')
+                with open('seeting.json','r',encoding='utf8') as jfile:
+                    jdata = json.load(jfile) 
+                if now_time == jdata['time'] and self.counter == 0: 
+                    time = datetime.datetime.now().strftime('[%H:%M:%S]')
+                    auto_msg = str(jdata['auto_msg'])
+                    await self.channel.send(auto_msg)
+                    print(f'{time} {auto_msg}')
+                    self.counter = 1
+                    await asyncio.sleep(1) #單位:秒
+                else:
+                    await asyncio.sleep(1) #單位:秒
+                    pass
+
+        self.bg_task = self.bot.loop.create_task(time_task())
+
+    @commands.command() #變更自動訊息頻道
+    async def 自動訊息頻道(self,ctx,ch:int):
+        self.channel = self.get_channel(ch)
+        await ctx.send(f'seted:{self.channel.mention}')
+
+    @commands.command() #設定自動訊息時間
+    async def 自動訊息時間(self,ctx,time):
+        self.counter = 0
+        with open('seeting.json','r',encoding='utf8') as jfile:
+            jdata = json.load(jfile)  
+        jdata['time'] = time
+        with open('seeting.json','w',encoding='utf8') as jfile:
+            json.dump(jdata,jfile,indent=4) 
+        time = str(jdata['time'])    
+        await ctx.send(f'已預定自動訊息時間 {time}')
+          
+    @commands.command() #設定自動訊息內容
+    async def 自動訊息內容(self,ctx,auto_msg):
+        with open('seeting.json','r',encoding='utf8') as jfile:
+            jdata = json.load(jfile)  
+        jdata['auto_msg'] = auto_msg
+        with open('seeting.json','w',encoding='utf8') as jfile:
+            json.dump(jdata,jfile,indent=4)
+        auto_msg = str(jdata['auto_msg'])
+        await ctx.send(f'已設定自動訊息內容為 {auto_msg}')
+
+def setup(bot):
+    bot.add_cog(自動訊息(bot))

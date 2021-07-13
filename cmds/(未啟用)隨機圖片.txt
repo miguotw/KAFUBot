@@ -1,0 +1,24 @@
+import discord
+from discord.ext import commands
+import json
+import random
+from core.classes import Cog_Extension
+
+with open('seeting.json','r',encoding='utf8') as jfile:
+    jdata = json.load(jfile)
+
+class 隨機圖片(Cog_Extension):
+
+    @commands.command() #發送圖片(本機)
+    async def 圖片(self,ctx):
+        random_picture = random.choice(jdata['picture'])
+        picture = discord.File(random_picture)
+        await ctx.send(file= picture)
+
+    @commands.command() #發送圖片(網路)
+    async def C2img(self,ctx):
+        random_picture = random.choice(jdata['picture_url'])
+        await ctx.send(random_picture)
+
+def setup(bot):
+    bot.add_cog(隨機圖片(bot))

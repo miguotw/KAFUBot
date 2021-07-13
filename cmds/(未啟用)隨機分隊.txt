@@ -1,0 +1,52 @@
+import discord
+from discord.ext import commands
+import json
+import random
+import datetime
+from core.classes import Cog_Extension
+
+with open('seeting.json','r',encoding='utf8') as jfile:
+    jdata = json.load(jfile)
+
+class 隨機分隊(Cog_Extension):
+
+    @commands.command() #設定組隊總人數
+    async def 所有人數(self,ctx,total_people):
+        with open('seeting.json','r',encoding='utf8') as jfile:
+            jdata = json.load(jfile)  
+        jdata['total_people'] = total_people
+        with open('seeting.json','w',encoding='utf8') as jfile:
+            json.dump(jdata,jfile,indent=4)
+        total_people = int(jdata['total_people'])
+        await ctx.send(f'已設定組隊人數為 {total_people} 人')
+
+    @commands.command() #設定組隊每隊人數
+    async def 隊伍人數(self,ctx,team_people):
+        with open('seeting.json','r',encoding='utf8') as jfile:
+            jdata = json.load(jfile)  
+        jdata['team_people'] = team_people
+        with open('seeting.json','w',encoding='utf8') as jfile:
+            json.dump(jdata,jfile,indent=4)
+        team_people = int(jdata['team_people'])
+        await ctx.send(f'已設定每隊人數為 {team_people} 人')    
+    
+    @commands.command() #開始組隊
+    async def 隨機分隊(self,ctx):
+        online = []
+        for member in ctx.guild.members:
+            if str(member.status) == 'online'and member.bot == False:
+                online.append(member.name)
+
+        total_people = int(jdata['total_people'])
+        random_online = random.sample(online,k=total_people) #K=? 為挑選的人數
+
+        for squad in range(9999):
+
+            team_people = int(jdata['team_people'])
+            a = random.sample(random_online,k=team_people) #K=? 為每個隊伍的人數
+            await ctx.send(f'隊伍{squad+1}:'+ str(a))
+            for name in a:
+                random_online.remove(name)
+
+def setup(bot):
+    bot.add_cog(隨機分隊(bot))
