@@ -1,0 +1,48 @@
+{
+    "token": "NjkyMDA4NzY4MDgyNDExNTQw.XnoRYw.r8VeY0J6oWyjIfSkeAXNbR-aPJU",
+    "join_and_leave_channel": "684752098671198238",
+    "picture": [
+        ".\\picture\\1.png",
+        ".\\picture\\2.png",
+        ".\\picture\\3.png"
+    ],
+    "picture_url": [
+        "https://i.imgur.com/YD0e1qi.png",
+        "https://i.imgur.com/5bOvI4g.png",
+        "https://i.imgur.com/mltYC3j.png"
+    ],
+    "lunch": [
+        "\u6709\u9593\u5c0f\u9928",
+        "SMILE\u65e9\u9910\u5e97",
+        "\u65bd\u5bb6\u706b\u96de\u8089\u98ef",
+        "\u7532\u4faf\u516b\u62c9\u9eb5",
+        "\u65b0\u7af9\u5433\u5bb6\u9d28\u9999\u98ef",
+        "\u9ea5\u7576\u52de",
+        "\u706b\u5ca9\u71d2\u725b\u6392",
+        "\u516b\u65b9\u96f2\u96c6",
+        "\u4e7e\u9eb5(\u7121\u62db\u724c)",
+        "\u795e\u6b66\u65e5\u672c\u62c9\u9eb5",
+        "\u5468\u5bb6\u5c0f\u9928",
+        "\u68ee\u4e95\u4e3c\u98ef"
+    ],
+    "game": [
+        "!\u6307\u4ee4"
+    ],
+    "judgment": [
+        "\u53ef\u4ee5",
+        "\u4e0d\u884c"
+    ],
+    "admin": [
+        "474460820131151874",
+        "460055099956264960",
+        "546893085666181131"
+    ],    
+    "developer":"474460820131151874",    
+    "time": "[20:28]",
+    "auto_msg": "\u99ac\u7684\u81edDD",
+    "total_people": "5",
+    "team_people": "1",
+    "count": "1",
+    "rule":"\u770b\u904e\u672c\u898f\u7ae0\u8acb\u9ede\u9078\u4ee5\u4e0b\u8868\u60c5\u7b26\u865f\u8a3b\u518a\u8eab\u5206\u7d44\uff0c\u4ee5\u958b\u555f\u57fa\u790e\u529f\u80fd\u3002",
+    "twitch_open":"@Opening notice https://www.twitch.tv/yelang9980"
+}
